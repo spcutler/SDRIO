@@ -560,7 +560,7 @@ SDRIOEXPORT sdrio_int32 sdrio_set_tx_gain(sdrio_device *dev, float gain)
     return 0;
 }
 
-SDRIOEXPORT void sdrio_get_tuning_range(sdrio_device *dev, sdrio_float64 *min, sdrio_float64 *max)
+SDRIOEXPORT void sdrio_get_tuning_range(sdrio_device *dev, sdrio_uint64 *min, sdrio_uint64 *max)
 {
     if (dev)
     {

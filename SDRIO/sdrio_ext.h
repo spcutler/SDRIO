@@ -80,7 +80,7 @@ typedef sdrio_int32 (*sdrio_set_rx_gain_t)(sdrio_device *dev, sdrio_float32 gain
 typedef sdrio_int32 (*sdrio_get_tx_gain_range_t)(sdrio_device *dev, sdrio_float32 *min, sdrio_float32 *max);
 typedef sdrio_int32 (*sdrio_set_tx_gain_t)(sdrio_device *dev, sdrio_float32 gain);
 
-typedef void        (*sdrio_get_tuning_range_t)(sdrio_device *dev, sdrio_float64 *min, sdrio_float64 *max);
+typedef void        (*sdrio_get_tuning_range_t)(sdrio_device *dev, sdrio_uint64 *min, sdrio_uint64 *max);
 typedef sdrio_int32 (*sdrio_get_caps_t)(sdrio_device *dev, sdrio_caps caps);
 
 #ifdef __cplusplus
@@ -124,7 +124,7 @@ extern "C" {
     SDRIOEXPORT sdrio_int32 sdrio_get_tx_gain_range(sdrio_device *dev, sdrio_float32 *min, sdrio_float32 *max);
     SDRIOEXPORT sdrio_int32 sdrio_set_tx_gain(sdrio_device *dev, sdrio_float32 gain);
 
-    SDRIOEXPORT void        sdrio_get_tuning_range(sdrio_device *dev, sdrio_float64 *min, sdrio_float64 *max);
+    SDRIOEXPORT void        sdrio_get_tuning_range(sdrio_device *dev, sdrio_uint64 *min, sdrio_uint64 *max);
     SDRIOEXPORT sdrio_int32 sdrio_get_caps(sdrio_device *dev, sdrio_caps caps);
 
 #ifdef __cplusplus

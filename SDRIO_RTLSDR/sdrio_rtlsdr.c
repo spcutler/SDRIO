@@ -28,8 +28,8 @@ typedef struct sdrio_device_t
     sdrio_iq *samples;
     sdrio_uint32 num_samples;
 
-    sdrio_float64 min_freq;
-    sdrio_float64 max_freq;
+    sdrio_uint64 min_freq;
+    sdrio_uint64 max_freq;
 };
 
 typedef struct sdrio_iqu8_t
@@ -380,7 +380,7 @@ SDRIOEXPORT sdrio_int32 sdrio_set_tx_gain(sdrio_device *dev, sdrio_float32 gain)
     return 0;
 }
 
-SDRIOEXPORT void sdrio_get_tuning_range(sdrio_device *dev, sdrio_float64 *min, sdrio_float64 *max)
+SDRIOEXPORT void sdrio_get_tuning_range(sdrio_device *dev, sdrio_uint64 *min, sdrio_uint64 *max)
 {
     if (dev)
     {
