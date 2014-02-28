@@ -15,19 +15,19 @@ extern "C" {
 
 struct sdrio_device_t
 {
-	sdrio_uint32 device_index;
+    sdrio_uint32 device_index;
 
     bladerf *bladerf_device;
 
     struct
     {
-	    sdrio_rx_async_callback callback;
-	    void *callback_context;
-	    pthread_t tid;
+        sdrio_rx_async_callback callback;
+        void *callback_context;
+        pthread_t tid;
         volatile bool done;
 
-	    sdrio_iq *samples;
-	    sdrio_uint32 num_samples;
+        sdrio_iq *samples;
+        sdrio_uint32 num_samples;
 
         void **buffers;
         sdrio_uint32 num_buffers;
@@ -40,8 +40,8 @@ struct sdrio_device_t
 
 typedef struct sdrio_iqu8_t
 {
-	sdrio_uint8 i;
-	sdrio_uint8 q;
+    sdrio_uint8 i;
+    sdrio_uint8 q;
 } sdrio_iqu8;
 
 bladerf_devinfo *g_devinfo = 0;
@@ -58,24 +58,24 @@ SDRIOEXPORT sdrio_int32 sdrio_init()
     {
         FreeLibrary(hLib);
         g_num_devices = bladerf_get_device_list(&g_devinfo);
-	    return (g_num_devices > 0);
+        return (g_num_devices > 0);
     }
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_get_num_devices()
 {
-	return g_num_devices;
+    return g_num_devices;
 }
 
 SDRIOEXPORT sdrio_device * sdrio_open_device(sdrio_uint32 device_index)
 {
     if (g_num_devices > 0)
     {
-	    sdrio_device *dev = (sdrio_device *)malloc(sizeof(sdrio_device));
+        sdrio_device *dev = (sdrio_device *)malloc(sizeof(sdrio_device));
         memset(dev, 0, sizeof(sdrio_device));
 
-	    if (dev)
-	    {
+        if (dev)
+        {
             dev->bladerf_device = 0;
             int ret = bladerf_open_with_devinfo(&dev->bladerf_device, &g_devinfo[0]);
 
@@ -107,44 +107,44 @@ SDRIOEXPORT sdrio_device * sdrio_open_device(sdrio_uint32 device_index)
             sdrio_set_rx_samplerate(dev, 2*1024*1024);
 
             ret = ret;
-	    }
+        }
 
         return dev;
     }
 
-	return 0;
+    return 0;
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_close_device(sdrio_device *dev)
 {
-	if (dev)
-	{
+    if (dev)
+    {
         bladerf_close(dev->bladerf_device);
-		return 1;
-	}
-	else
-	{
-		return 0;
-	}
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 SDRIOEXPORT const char * sdrio_get_device_string(sdrio_device *dev)
 {
-	if (dev)
-	{
-		return "bladeRF";
-	}
-	else
-	{
-		return 0;
+    if (dev)
+    {
+        return "bladeRF";
+    }
+    else
+    {
+        return 0;
 
-	}
+    }
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_set_rx_samplerate(sdrio_device *dev, sdrio_uint64 sample_rate)
 {
-	if (dev)
-	{
+    if (dev)
+    {
         unsigned int actual_rate = 0;
         int ret = bladerf_set_sample_rate(dev->bladerf_device, BLADERF_MODULE_RX, (unsigned int)sample_rate, &actual_rate);
         dev->rx.sample_rate = (sdrio_uint64)actual_rate;
@@ -152,32 +152,32 @@ SDRIOEXPORT sdrio_int32 sdrio_set_rx_samplerate(sdrio_device *dev, sdrio_uint64 
         unsigned int actual_bandwidth = 0;
         ret = bladerf_set_bandwidth(dev->bladerf_device, BLADERF_MODULE_RX, (unsigned int)sample_rate, &actual_bandwidth);
 
-		return (ret >= 0);
-	}
-	else
-	{
-		return 0;
-	}
+        return (ret >= 0);
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_set_rx_frequency(sdrio_device *dev, sdrio_uint64 frequency)
 {
-	if (dev)
-	{
+    if (dev)
+    {
         dev->rx.frequency = frequency;
         int ret = bladerf_set_frequency(dev->bladerf_device, BLADERF_MODULE_RX, (unsigned int)dev->rx.frequency);
-		return (ret >= 0);
-	}
-	else
-	{
-		return 0;
-	}
+        return (ret >= 0);
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_set_tx_samplerate(sdrio_device *dev, sdrio_uint64 sample_rate)
 {
-	if (dev)
-	{
+    if (dev)
+    {
         unsigned int actual_rate = 0;
         int ret = bladerf_set_sample_rate(dev->bladerf_device, BLADERF_MODULE_TX, (unsigned int)sample_rate, &actual_rate);
         dev->tx.sample_rate = (sdrio_uint64)actual_rate;
@@ -185,26 +185,26 @@ SDRIOEXPORT sdrio_int32 sdrio_set_tx_samplerate(sdrio_device *dev, sdrio_uint64 
         unsigned int actual_bandwidth = 0;
         ret = bladerf_set_bandwidth(dev->bladerf_device, BLADERF_MODULE_TX, (unsigned int)sample_rate, &actual_bandwidth);
 
-		return (ret >= 0);
-	}
-	else
-	{
-		return 0;
-	}
+        return (ret >= 0);
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_set_tx_frequency(sdrio_device *dev, sdrio_uint64 frequency)
 {
-	if (dev)
-	{
+    if (dev)
+    {
         dev->tx.frequency = frequency;
         int ret = bladerf_set_frequency(dev->bladerf_device, BLADERF_MODULE_TX, (unsigned int)dev->tx.frequency);
-		return (ret >= 0);
-	}
-	else
-	{
-		return 0;
-	}
+        return (ret >= 0);
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 typedef struct sdrio_iqi16_t
@@ -219,33 +219,33 @@ void * bladerf_stream_rx_callback(struct bladerf *bladerf_device, struct bladerf
 
     if (dev)
     {
-		if (dev->rx.num_samples != num_samples)
-		{
-			dev->rx.num_samples = num_samples;
+        if (dev->rx.num_samples != num_samples)
+        {
+            dev->rx.num_samples = num_samples;
 
-			if (dev->rx.samples)
-			{
-				free(dev->rx.samples);
-			}
+            if (dev->rx.samples)
+            {
+                free(dev->rx.samples);
+            }
 
-			dev->rx.samples = (sdrio_iq *)malloc(dev->rx.num_samples * sizeof(sdrio_iq));
-		}
+            dev->rx.samples = (sdrio_iq *)malloc(dev->rx.num_samples * sizeof(sdrio_iq));
+        }
 
-		if (dev->rx.samples)
-		{
-			sdrio_iqi16 *iqbuf = (sdrio_iqi16 *)samples;
-			sdrio_uint32 i;
+        if (dev->rx.samples)
+        {
+            sdrio_iqi16 *iqbuf = (sdrio_iqi16 *)samples;
+            sdrio_uint32 i;
 
-			for (i=0; i<dev->rx.num_samples; i++)
-			{
-				dev->rx.samples[i].i = (float)(int16_t)(iqbuf[i].i << 4) * (0.000030517578125f);
-				dev->rx.samples[i].q = (float)(int16_t)(iqbuf[i].q << 4) * (0.000030517578125f);
-				//dev->rx.samples[i].i = (float)(int16_t)(iqbuf[i].q << 4) * (0.000030517578125f);
-				//dev->rx.samples[i].q = (float)(int16_t)(iqbuf[i].i << 4) * (0.000030517578125f);
-			}
+            for (i=0; i<dev->rx.num_samples; i++)
+            {
+                dev->rx.samples[i].i = (float)(int16_t)(iqbuf[i].i << 4) * (0.000030517578125f);
+                dev->rx.samples[i].q = (float)(int16_t)(iqbuf[i].q << 4) * (0.000030517578125f);
+                //dev->rx.samples[i].i = (float)(int16_t)(iqbuf[i].q << 4) * (0.000030517578125f);
+                //dev->rx.samples[i].q = (float)(int16_t)(iqbuf[i].i << 4) * (0.000030517578125f);
+            }
 
             dev->rx.callback(dev->rx.callback_context, dev->rx.samples, dev->rx.num_samples);
-		}
+        }
 
         if (!dev->rx.done)
         {
@@ -260,10 +260,10 @@ void * bladerf_stream_rx_callback(struct bladerf *bladerf_device, struct bladerf
 
 SDRIOEXPORT void * start_rx_routine(void *ctx)
 {
-	sdrio_device *dev = (sdrio_device *)ctx;
+    sdrio_device *dev = (sdrio_device *)ctx;
 
-	if (dev)
-	{
+    if (dev)
+    {
         struct bladerf_stream *stream = 0;
         dev->rx.buffers = 0;
         dev->rx.num_buffers = 32;
@@ -282,19 +282,19 @@ SDRIOEXPORT void * start_rx_routine(void *ctx)
             ctx);
 
         bladerf_stream(stream, BLADERF_MODULE_RX);
-	}
+    }
 
-	return 0;
+    return 0;
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_start_rx(sdrio_device *dev, sdrio_rx_async_callback callback, void *context)
 {
     if (dev)
     {
-	    dev->rx.callback = callback;
-	    dev->rx.callback_context = context;
+        dev->rx.callback = callback;
+        dev->rx.callback_context = context;
         bladerf_enable_module(dev->bladerf_device, BLADERF_MODULE_RX, true);
-	    return pthread_create(&dev->rx.tid, 0, start_rx_routine, (void *)dev) == 0;
+        return pthread_create(&dev->rx.tid, 0, start_rx_routine, (void *)dev) == 0;
     }
     else
     {
@@ -304,17 +304,17 @@ SDRIOEXPORT sdrio_int32 sdrio_start_rx(sdrio_device *dev, sdrio_rx_async_callbac
 
 SDRIOEXPORT sdrio_int32 sdrio_stop_rx(sdrio_device *dev)
 {
-	if (dev)
-	{
+    if (dev)
+    {
         dev->rx.done = 1;
-		pthread_join(dev->rx.tid, 0);
+        pthread_join(dev->rx.tid, 0);
         bladerf_enable_module(dev->bladerf_device, BLADERF_MODULE_RX, false);
-		return 1;
-	}
-	else
-	{
-		return 0;
-	}
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 void * bladerf_stream_tx_callback(struct bladerf *bladerf_device, struct bladerf_stream *stream, struct bladerf_metadata *meta, void *samples, size_t num_samples, void *user_data)
@@ -323,31 +323,31 @@ void * bladerf_stream_tx_callback(struct bladerf *bladerf_device, struct bladerf
 
     if (dev)
     {
-		if (dev->tx.num_samples != num_samples)
-		{
-			dev->tx.num_samples = num_samples;
+        if (dev->tx.num_samples != num_samples)
+        {
+            dev->tx.num_samples = num_samples;
 
-			if (dev->tx.samples)
-			{
-				free(dev->tx.samples);
-			}
+            if (dev->tx.samples)
+            {
+                free(dev->tx.samples);
+            }
 
-			dev->tx.samples = (sdrio_iq *)malloc(dev->tx.num_samples * sizeof(sdrio_iq));
-		}
+            dev->tx.samples = (sdrio_iq *)malloc(dev->tx.num_samples * sizeof(sdrio_iq));
+        }
 
-		if (dev->tx.samples && samples)
-		{
+        if (dev->tx.samples && samples)
+        {
             dev->tx.callback(dev->tx.callback_context, dev->tx.samples, dev->tx.num_samples);
 
-			sdrio_iqi16 *iqbuf = (sdrio_iqi16 *)samples;
-			sdrio_uint32 i;
+            sdrio_iqi16 *iqbuf = (sdrio_iqi16 *)samples;
+            sdrio_uint32 i;
 
-			for (i=0; i<dev->tx.num_samples; i++)
-			{
+            for (i=0; i<dev->tx.num_samples; i++)
+            {
                 iqbuf[i].i = (sdrio_uint16)(sdrio_int16)(dev->tx.samples[i].i * 32767.0f) >> 4;
                 iqbuf[i].q = (sdrio_uint16)(sdrio_int16)(dev->tx.samples[i].q * 32767.0f) >> 4;
-			}
-		}
+            }
+        }
 
         if (!dev->tx.done)
         {
@@ -362,10 +362,10 @@ void * bladerf_stream_tx_callback(struct bladerf *bladerf_device, struct bladerf
 
 SDRIOEXPORT void * start_tx_routine(void *ctx)
 {
-	sdrio_device *dev = (sdrio_device *)ctx;
+    sdrio_device *dev = (sdrio_device *)ctx;
 
-	if (dev)
-	{
+    if (dev)
+    {
         struct bladerf_stream *stream = 0;
         dev->tx.buffers = 0;
         dev->tx.num_buffers = 32;
@@ -384,19 +384,19 @@ SDRIOEXPORT void * start_tx_routine(void *ctx)
             ctx);
 
         bladerf_stream(stream, BLADERF_MODULE_TX);
-	}
+    }
 
-	return 0;
+    return 0;
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_start_tx(sdrio_device *dev, sdrio_tx_async_callback callback, void *context)
 {
     if (dev)
     {
-	    dev->tx.callback = callback;
-	    dev->tx.callback_context = context;
+        dev->tx.callback = callback;
+        dev->tx.callback_context = context;
         bladerf_enable_module(dev->bladerf_device, BLADERF_MODULE_TX, true);
-	    return pthread_create(&dev->tx.tid, 0, start_tx_routine, (void *)dev) == 0;
+        return pthread_create(&dev->tx.tid, 0, start_tx_routine, (void *)dev) == 0;
     }
     else
     {
@@ -406,29 +406,29 @@ SDRIOEXPORT sdrio_int32 sdrio_start_tx(sdrio_device *dev, sdrio_tx_async_callbac
 
 SDRIOEXPORT sdrio_int32 sdrio_stop_tx(sdrio_device *dev)
 {
-	if (dev)
-	{
+    if (dev)
+    {
         dev->tx.done = 1;
-		pthread_join(dev->tx.tid, 0);
+        pthread_join(dev->tx.tid, 0);
         bladerf_enable_module(dev->bladerf_device, BLADERF_MODULE_TX, false);
-		return 1;
-	}
-	else
-	{
-		return 0;
-	}
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 SDRIOEXPORT sdrio_int64 sdrio_get_rx_frequency(sdrio_device *dev)
 {
-	if (dev)
-	{
+    if (dev)
+    {
         return dev->rx.frequency;
-	}
-	else
-	{
-		return 0;
-	}
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 static const sdrio_uint32 sample_rates[] = {1024*1024, 1536*1024, 2*1024*1024, 3*1024*1024, 4*1024*1024, 6*1024*1024, 8*1024*1024, 12*1024*1024, 16*1024*1024};
@@ -445,63 +445,63 @@ SDRIOEXPORT void sdrio_get_samplerates(sdrio_device *dev, sdrio_uint32 *sample_r
 
 SDRIOEXPORT sdrio_int64 sdrio_get_rx_samplerate(sdrio_device *dev)
 {
-	if (dev)
-	{
+    if (dev)
+    {
         return dev->rx.sample_rate;
-	}
-	else
-	{
-		return 0;
-	}
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 SDRIOEXPORT sdrio_int64 sdrio_get_tx_frequency(sdrio_device *dev)
 {
-	return 0;
+    return 0;
 }
 
 SDRIOEXPORT sdrio_int64 sdrio_get_tx_samplerate(sdrio_device *dev)
 {
-	return 0;
+    return 0;
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_set_rx_gain_mode(sdrio_device *dev, sdrio_gain_mode gain_mode)
 {
-	if (dev)
-	{
-		switch (gain_mode)
-		{
-		case sdrio_gain_mode_agc:
-			break;
-		case sdrio_gain_mode_manual:
-			break;
-		default:
-			return 0;
-		}
-	}
-	return 1;
+    if (dev)
+    {
+        switch (gain_mode)
+        {
+        case sdrio_gain_mode_agc:
+            break;
+        case sdrio_gain_mode_manual:
+            break;
+        default:
+            return 0;
+        }
+    }
+    return 1;
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_get_rx_gain_range(sdrio_device *dev, sdrio_float32 *min, sdrio_float32 *max)
 {
-	if (dev)
-	{
-		if (min)
-		{
-			*min = 0;
-		}
+    if (dev)
+    {
+        if (min)
+        {
+            *min = 0;
+        }
 
-		if (max)
-		{
-			*max = 67;
-		}
+        if (max)
+        {
+            *max = 67;
+        }
 
-		return 1;
-	}
-	else
-	{
-		return 0;
-	}
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 #include <Windows.h>
@@ -509,8 +509,8 @@ SDRIOEXPORT sdrio_int32 sdrio_get_rx_gain_range(sdrio_device *dev, sdrio_float32
 
 SDRIOEXPORT sdrio_int32 sdrio_set_rx_gain(sdrio_device *dev, float gain)
 {
-	if (dev)
-	{
+    if (dev)
+    {
         sdrio_int32 int_gain = (sdrio_int32)gain;
         if (int_gain >= 6)
         {
@@ -545,11 +545,11 @@ SDRIOEXPORT sdrio_int32 sdrio_set_rx_gain(sdrio_device *dev, float gain)
         }
 
         return 1;
-	}
-	else
-	{
-		return 0;
-	}
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_get_tx_gain_range(sdrio_device *dev, float *min, float *max)
@@ -589,7 +589,7 @@ SDRIOEXPORT sdrio_int32 sdrio_set_tx_gain(sdrio_device *dev, float gain)
         return 1;
     }
 
-	return 0;
+    return 0;
 }
 
 SDRIOEXPORT void sdrio_get_tuning_range(sdrio_device *dev, sdrio_float64 *min, sdrio_float64 *max)

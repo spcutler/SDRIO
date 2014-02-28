@@ -122,7 +122,7 @@ bool funcube_hidopen(sdrio_device_t *dev)
     static char funCubeVIDPID[] = "vid_04d8&pid_fb31";
     _strlwr_s(funCubeVIDPID);
 
-	GUID guid = {0x4d1e55b2, 0xf16f, 0x11cf, 0x88, 0xcb, 0x00, 0x11, 0x11, 0x00, 0x00, 0x30}; 
+    GUID guid = {0x4d1e55b2, 0xf16f, 0x11cf, 0x88, 0xcb, 0x00, 0x11, 0x11, 0x00, 0x00, 0x30}; 
 
     HDEVINFO hDevInfo = SetupDiGetClassDevs(&guid, 0, 0, DIGCF_PRESENT | DIGCF_DEVICEINTERFACE);
 
@@ -132,58 +132,58 @@ bool funcube_hidopen(sdrio_device_t *dev)
     }
 
     sdrio_uint32 devIndex = 0;
-	SP_DEVINFO_DATA devInfoData;
+    SP_DEVINFO_DATA devInfoData;
     devInfoData.cbSize = sizeof(SP_DEVINFO_DATA);
 
     while (SetupDiEnumDeviceInfo(hDevInfo, devIndex, &devInfoData))
     {
-		DWORD DataT;
+        DWORD DataT;
         char temp[1] = {0};
-		DWORD buffersize = 0;
-	    BOOL ret = SetupDiGetDeviceRegistryProperty(hDevInfo, &devInfoData, SPDRP_HARDWAREID, &DataT, (PBYTE)temp, sizeof(temp), &buffersize);
+        DWORD buffersize = 0;
+        BOOL ret = SetupDiGetDeviceRegistryProperty(hDevInfo, &devInfoData, SPDRP_HARDWAREID, &DataT, (PBYTE)temp, sizeof(temp), &buffersize);
 
         char *devRegProp = new char[buffersize];
         DWORD len = 0;
-	    SetupDiGetDeviceRegistryProperty(hDevInfo, &devInfoData, SPDRP_HARDWAREID, &DataT, (PBYTE)devRegProp, buffersize, &len);
+        SetupDiGetDeviceRegistryProperty(hDevInfo, &devInfoData, SPDRP_HARDWAREID, &DataT, (PBYTE)devRegProp, buffersize, &len);
 
         _strlwr_s(devRegProp, buffersize);
        
-		if (strstr(devRegProp, funCubeVIDPID))
+        if (strstr(devRegProp, funCubeVIDPID))
         {
-			SP_DEVICE_INTERFACE_DATA devIntData;
+            SP_DEVICE_INTERFACE_DATA devIntData;
 
-			devIntData.cbSize = sizeof(SP_DEVICE_INTERFACE_DATA);
-			if (SetupDiEnumDeviceInterfaces(hDevInfo, NULL, &guid, devIndex, &devIntData))
-			{
-				DWORD diddSize = 0;
-				SetupDiGetDeviceInterfaceDetail(hDevInfo, &devIntData, NULL, 0, &diddSize, NULL);	
+            devIntData.cbSize = sizeof(SP_DEVICE_INTERFACE_DATA);
+            if (SetupDiEnumDeviceInterfaces(hDevInfo, NULL, &guid, devIndex, &devIntData))
+            {
+                DWORD diddSize = 0;
+                SetupDiGetDeviceInterfaceDetail(hDevInfo, &devIntData, NULL, 0, &diddSize, NULL);    
 
                 SP_DEVICE_INTERFACE_DETAIL_DATA *pDevIntDetData = (SP_DEVICE_INTERFACE_DETAIL_DATA *)(new char[diddSize]);
 
-				pDevIntDetData->cbSize = sizeof(SP_DEVICE_INTERFACE_DETAIL_DATA);
+                pDevIntDetData->cbSize = sizeof(SP_DEVICE_INTERFACE_DETAIL_DATA);
 
-				SetupDiGetDeviceInterfaceDetail(hDevInfo, &devIntData, pDevIntDetData, diddSize, NULL, NULL);
+                SetupDiGetDeviceInterfaceDetail(hDevInfo, &devIntData, pDevIntDetData, diddSize, NULL, NULL);
 
                 dev->hidWrite = CreateFile(pDevIntDetData->DevicePath, GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, 0);
-				if (GetLastError() != ERROR_SUCCESS)
-				{
+                if (GetLastError() != ERROR_SUCCESS)
+                {
                     delete [] pDevIntDetData;
-					goto next_device;
-				}
+                    goto next_device;
+                }
 
                 dev->hidRead = CreateFile(pDevIntDetData->DevicePath, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, 0);
-				if (GetLastError() != ERROR_SUCCESS)
-				{
+                if (GetLastError() != ERROR_SUCCESS)
+                {
                     delete [] pDevIntDetData;
-					goto next_device;
-				}
+                    goto next_device;
+                }
 
                 delete [] pDevIntDetData;
                 delete [] devRegProp;
-       			SetupDiDestroyDeviceInfoList(hDevInfo);
+                   SetupDiDestroyDeviceInfoList(hDevInfo);
 
                 return true;
-			}
+            }
         }
 
 next_device:
@@ -199,8 +199,8 @@ sdrio_uint32 g_num_devices = 0;
 
 typedef struct sdrio_iqu8_t
 {
-	sdrio_int16 i;
-	sdrio_int16 q;
+    sdrio_int16 i;
+    sdrio_int16 q;
 } sdrio_iqi16;
 
 SDRIOEXPORT sdrio_int32 sdrio_init()
@@ -222,12 +222,12 @@ SDRIOEXPORT sdrio_int32 sdrio_init()
         }
     }
 
-	return g_num_devices;
+    return g_num_devices;
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_get_num_devices()
 {
-	return g_num_devices;
+    return g_num_devices;
 }
 
 SDRIOEXPORT sdrio_device * sdrio_open_device(sdrio_uint32 device_index)
@@ -283,43 +283,43 @@ SDRIOEXPORT sdrio_device * sdrio_open_device(sdrio_uint32 device_index)
 
 open_device_error:
     delete dev;
-	return 0;
+    return 0;
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_close_device(sdrio_device *dev)
 {
-	if (dev)
-	{
-    	CloseHandle(dev->hidWrite);
-	    CloseHandle(dev->hidRead);
+    if (dev)
+    {
+        CloseHandle(dev->hidWrite);
+        CloseHandle(dev->hidRead);
         delete dev;
-		return 1;
-	}
-	else
-	{
-		return 0;
-	}
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 SDRIOEXPORT const char * sdrio_get_device_string(sdrio_device *dev)
 {
-	if (dev)
-	{
-		return "FUNcube Dongle";
-	}
-	else
-	{
-		return 0;
+    if (dev)
+    {
+        return "FUNcube Dongle";
+    }
+    else
+    {
+        return 0;
 
-	}
+    }
 }
 
 static const sdrio_uint32 sample_rates[] = {192000};
 
 SDRIOEXPORT sdrio_int32 sdrio_set_rx_samplerate(sdrio_device *dev, sdrio_uint64 sample_rate)
 {
-	if (dev)
-	{
+    if (dev)
+    {
         sdrio_uint32 num_sample_rates = sdrio_get_num_samplerates(dev);
         sdrio_uint32 i = 0;
         for (i=0; i<num_sample_rates; i++)
@@ -330,34 +330,34 @@ SDRIOEXPORT sdrio_int32 sdrio_set_rx_samplerate(sdrio_device *dev, sdrio_uint64 
             }
         }
 
-		return (i < num_sample_rates);
-	}
-	else
-	{
-		return 0;
-	}
+        return (i < num_sample_rates);
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_set_rx_frequency(sdrio_device *dev, sdrio_uint64 frequency)
 {
-	if (dev)
-	{
+    if (dev)
+    {
         dev->rx_freq = frequency;
 
         funcube_hid_set_freq_packet setFreq((sdrio_uint32)frequency);
         sdrio_uint32 bytesWritten = 0;
-	    WriteFile(dev->hidWrite, &setFreq, sizeof(funcube_hid_set_freq_packet), &bytesWritten, 0);
+        WriteFile(dev->hidWrite, &setFreq, sizeof(funcube_hid_set_freq_packet), &bytesWritten, 0);
 
         funcube_hid_response_packet response;
         sdrio_uint32 bytesRead = 0;
-	    ReadFile(dev->hidRead, &response, sizeof(response), &bytesRead, 0);
+        ReadFile(dev->hidRead, &response, sizeof(response), &bytesRead, 0);
 
         return response.success;
-	}
-	else
-	{
-		return 0;
-	}
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_set_tx_samplerate(sdrio_device *dev, sdrio_uint64 sample_rate)
@@ -367,15 +367,15 @@ SDRIOEXPORT sdrio_int32 sdrio_set_tx_samplerate(sdrio_device *dev, sdrio_uint64 
 
 SDRIOEXPORT sdrio_int32 sdrio_set_tx_frequency(sdrio_device *dev, sdrio_uint64 frequency)
 {
-	return 0;
+    return 0;
 }
 
 SDRIOEXPORT void * start_rx_routine(void *ctx)
 {
-	sdrio_device *dev = (sdrio_device *)ctx;
+    sdrio_device *dev = (sdrio_device *)ctx;
 
-	if (dev)
-	{
+    if (dev)
+    {
         dev->rx_done = 0;
 
         MMRESULT result = waveInStart(dev->hWaveIn);
@@ -404,9 +404,9 @@ SDRIOEXPORT void * start_rx_routine(void *ctx)
                 Sleep(1);
             }
         }
-	}
+    }
 
-	return 0;
+    return 0;
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_start_rx(sdrio_device *dev, sdrio_rx_async_callback callback, void *context)
@@ -425,16 +425,16 @@ SDRIOEXPORT sdrio_int32 sdrio_start_rx(sdrio_device *dev, sdrio_rx_async_callbac
 
 SDRIOEXPORT sdrio_int32 sdrio_stop_rx(sdrio_device *dev)
 {
-	if (dev)
-	{
+    if (dev)
+    {
         dev->rx_done = 1;
-		pthread_join(dev->rx_tid, 0);
-		return 1;
-	}
-	else
-	{
-		return 0;
-	}
+        pthread_join(dev->rx_tid, 0);
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_start_tx(sdrio_device *dev, sdrio_tx_async_callback callback, void *context)
@@ -451,7 +451,7 @@ SDRIOEXPORT sdrio_int64 sdrio_get_rx_frequency(sdrio_device *dev)
 {
     if (dev)
     {
-	    return dev->rx_freq;
+        return dev->rx_freq;
     }
     else
     {
@@ -471,93 +471,93 @@ SDRIOEXPORT void sdrio_get_samplerates(sdrio_device *dev, sdrio_uint32 *sample_r
 
 SDRIOEXPORT sdrio_int64 sdrio_get_rx_samplerate(sdrio_device *dev)
 {
-	if (dev)
-	{
+    if (dev)
+    {
         return 192000;
-	}
-	else
-	{
-		return 0;
-	}
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 SDRIOEXPORT sdrio_int64 sdrio_get_tx_frequency(sdrio_device *dev)
 {
-	return 0;
+    return 0;
 }
 
 SDRIOEXPORT sdrio_int64 sdrio_get_tx_samplerate(sdrio_device *dev)
 {
-	return 0;
+    return 0;
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_set_rx_gain_mode(sdrio_device *dev, sdrio_gain_mode gain_mode)
 {
-	if (dev)
-	{
-		switch (gain_mode)
-		{
-		case sdrio_gain_mode_agc:
-			break;
-		case sdrio_gain_mode_manual:
-			break;
-		default:
-			return 0;
-		}
-	}
-	return 1;
+    if (dev)
+    {
+        switch (gain_mode)
+        {
+        case sdrio_gain_mode_agc:
+            break;
+        case sdrio_gain_mode_manual:
+            break;
+        default:
+            return 0;
+        }
+    }
+    return 1;
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_get_rx_gain_range(sdrio_device *dev, sdrio_float32 *min, sdrio_float32 *max)
 {
-	if (dev)
-	{
-		if (min)
-		{
-			*min = FCD_MIN_IF_GAIN;
-		}
+    if (dev)
+    {
+        if (min)
+        {
+            *min = FCD_MIN_IF_GAIN;
+        }
 
-		if (max)
-		{
-			*max = FCD_MAX_IF_GAIN;
-		}
+        if (max)
+        {
+            *max = FCD_MAX_IF_GAIN;
+        }
 
-		return 1;
-	}
-	else
-	{
-		return 0;
-	}
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_set_rx_gain(sdrio_device *dev, float gain)
 {
-	if (dev)
-	{
+    if (dev)
+    {
         funcube_hid_set_if_gain_packet setGain((sdrio_uint32)gain);
         sdrio_uint32 bytesWritten = 0;
-	    WriteFile(dev->hidWrite, &setGain, sizeof(funcube_hid_set_if_gain_packet), &bytesWritten, 0);
+        WriteFile(dev->hidWrite, &setGain, sizeof(funcube_hid_set_if_gain_packet), &bytesWritten, 0);
 
         funcube_hid_response_packet response;
         sdrio_uint32 bytesRead = 0;
-	    ReadFile(dev->hidRead, &response, sizeof(response), &bytesRead, 0);
+        ReadFile(dev->hidRead, &response, sizeof(response), &bytesRead, 0);
 
         return response.success;
-	}
-	else
-	{
-		return 0;
-	}
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_get_tx_gain_range(sdrio_device *dev, float *min, float *max)
 {
-	return 0;
+    return 0;
 }
 
 SDRIOEXPORT sdrio_int32 sdrio_set_tx_gain(sdrio_device *dev, float gain)
 {
-	return 0;
+    return 0;
 }
 
 SDRIOEXPORT void sdrio_get_tuning_range(sdrio_device *dev, sdrio_float64 *min, sdrio_float64 *max)
