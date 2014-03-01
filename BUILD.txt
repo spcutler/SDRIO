@@ -1,0 +1,32 @@
+SDRIO build instructions
+----------------------------------------------------
+I use MSVS Express 2012 for building.
+
+The 3rdparty directory should be filled out like the following:
+3rdparty\bladeRF\include\libbladeRF.h
+3rdparty\bladeRF\lib\bladeRF.lib
+
+3rdparty\libusb\examples\...
+3rdparty\libusb\include\...
+(extract full libusb distribution here)
+
+3rdparty\NSIS\Bin\...
+3rdparty\NSIS\Contrib\...
+(extract full NSIS distribution here)
+
+3rdparty\pthreads\dll\pthreadVC2.dll
+3rdparty\pthreads\include\pthread.h
+3rdparty\pthreads\include\sched.h
+3rdparty\pthreads\include\semaphore.h
+3rdparty\pthreads\lib\pthreadVC2.lib
+3rdparty\pthreads\lib\pthreadVCE2.lib
+3rdparty\pthreads\lib\pthreadVSE2.lib
+
+3rdparty\rtl-sdr\x32\...
+3rdparty\rtl-sdr\x64\...
+3rdparty\rtl-sdr\rtl-sdr.h
+3rdparty\rtl-sdr\rtl-sdr_export.h
+
+------------------------------------------------------
+Once a release build has been made, you may run installer\makeNSIS.bat to 
+create an installer.
