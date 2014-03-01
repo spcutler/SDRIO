@@ -1,9 +1,15 @@
 // Copyright Scott Cutler
 // This source file is licensed under the GNU Lesser General Public License (LGPL)
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <Windows.h>
 #include <stdlib.h>
 #include <string.h>
+#include <string>
+#include <stdio.h>
+#include <iostream>
+#include <fstream>
 
 #include "sdrio_ext.h"
 
@@ -91,12 +97,41 @@ SDRIOEXPORT sdrio_device * sdrio_open_device(sdrio_uint32 device_index)
 
             if (!ret)
             {
+                std::string fpgaFile;
+
                 switch (size)
                 {
-                case BLADERF_FPGA_40KLE:  ret = bladerf_load_fpga(dev->bladerf_device, "hostedx40.rbf"); break;
-                case BLADERF_FPGA_115KLE: ret = bladerf_load_fpga(dev->bladerf_device, "hostedx115.rbf"); break;
+                case BLADERF_FPGA_40KLE:  fpgaFile = "hostedx40.rbf"; break;
+                case BLADERF_FPGA_115KLE: fpgaFile = "hostedx115.rbf"; break;
                 default:
                 case BLADERF_FPGA_UNKNOWN: return 0;
+                }
+
+                //struct stat fileStat;
+                std::string fpgaPath;
+                std::string programFilesx86 = getenv("ProgramFiles(x86)");
+                std::string programFiles    = getenv("ProgramFiles");
+
+                std::string searchPaths[] = {
+                    "",
+                    programFilesx86 + "\\bladeRF\\",
+                    programFiles    + "\\bladeRF\\"};
+
+                int numPathsToSearch = sizeof(searchPaths) / sizeof(searchPaths[0]);
+                int pathIndex = 0;
+                for (pathIndex=0; pathIndex<numPathsToSearch; pathIndex++)
+                {
+                    fpgaPath = std::string(searchPaths[pathIndex]) + fpgaFile;
+                    std::ifstream ifs(fpgaPath.c_str());
+                    if (ifs.good())
+                    {
+                        break;
+                    }
+                }
+
+                if (pathIndex < numPathsToSearch)
+                {
+                    ret = bladerf_load_fpga(dev->bladerf_device, fpgaPath.c_str());
                 }
             }
 
@@ -503,9 +538,6 @@ SDRIOEXPORT sdrio_int32 sdrio_get_rx_gain_range(sdrio_device *dev, sdrio_float32
         return 0;
     }
 }
-
-#include <Windows.h>
-#include <stdio.h>
 
 SDRIOEXPORT sdrio_int32 sdrio_set_rx_gain(sdrio_device *dev, float gain)
 {
