@@ -4,12 +4,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../sdrio/sdrio_ext.h"
+#include "sdrio_ext.h"
 
 #define rtlsdr_STATIC
-#include "rtl-sdr/rtl-sdr.h"
+#include "rtl-sdr.h"
 
-#include "pthreads/include/pthread.h"
+#include "pthread.h"
 
 typedef struct sdrio_device_t
 {

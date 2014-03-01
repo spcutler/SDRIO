@@ -43,11 +43,11 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>rtl-sdr;pthreads\include;..\3rdparty\bladeRF\include;libusbx\include\libusbx-1.0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\SDRIO;$(SolutionDir)\3rdparty\rtl-sdr;$(SolutionDir)\3rdparty\pthreads\include;$(SolutionDir)\3rdparty\bladeRF\include;$(SolutionDir)\3rdparty\libusbx\include\libusbx-1.0</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>pthreads\lib\pthreadVC2.lib;libusbx\MS32\static\libusb-1.0.lib;..\3rdparty\bladeRF\lib\bladeRF.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)\3rdparty\pthreads\lib\pthreadVC2.lib;$(SolutionDir)\3rdparty\libusb\MS32\static\libusb-1.0.lib;$(SolutionDir)\3rdparty\bladeRF\lib\bladeRF.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <DelayLoadDLLs>bladeRF.dll</DelayLoadDLLs>
     </Link>
   </ItemDefinitionGroup>
@@ -57,13 +57,13 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>rtl-sdr;pthreads\include;..\3rdparty\bladeRF\include;libusbx\include\libusbx-1.0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\SDRIO;$(SolutionDir)\3rdparty\rtl-sdr;$(SolutionDir)\3rdparty\pthreads\include;$(SolutionDir)\3rdparty\bladeRF\include;$(SolutionDir)\3rdparty\libusbx\include\libusbx-1.0</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>pthreads\lib\pthreadVC2.lib;libusbx\MS32\static\libusb-1.0.lib;..\3rdparty\bladeRF\lib\bladeRF.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)\3rdparty\pthreads\lib\pthreadVC2.lib;$(SolutionDir)\3rdparty\libusb\MS32\static\libusb-1.0.lib;$(SolutionDir)\3rdparty\bladeRF\lib\bladeRF.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <DelayLoadDLLs>bladeRF.dll</DelayLoadDLLs>
     </Link>
   </ItemDefinitionGroup>

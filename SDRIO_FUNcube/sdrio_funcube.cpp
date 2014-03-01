@@ -11,12 +11,10 @@
 #pragma comment(lib, "winmm.lib")
 #pragma comment(lib, "setupapi.lib")
 
-#include "../sdrio/sdrio_ext.h"
+#include "sdrio_ext.h"
 #include "pthread.h"
 
 #define CT_ASSERT(e) typedef char __CT_ASSERT__[(e)?1:-1]
-
-//static TCHAR _szVIDPID[]=_T("Vid_04d8&Pid_fb31");
 
 #define FCD_HID_CMD_QUERY              1 // Returns string with "FCDAPP version"
 

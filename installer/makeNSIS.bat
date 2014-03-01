@@ -1,0 +1,1 @@
+..\3rdparty\NSIS\Bin\makensis.exe SDRIO.nsi

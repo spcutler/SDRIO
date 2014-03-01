@@ -5,9 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../sdrio/sdrio_ext.h"
+#include "sdrio_ext.h"
 
-#include "pthreads/include/pthread.h"
+#include "pthread.h"
 
 #include "libbladeRF.h"
 

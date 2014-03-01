@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Zadig install instructions for RTL-SDR</title>
+<style>
+p { font-family: Tahoma, sans-serif; font-size: 0.9em; }
+h2 { font-family: Tahoma, sans-serif; }
+</style>
+</head>
+<h2>RTL-SDR Driver Installation</h2>
+
+<p>RTL-SDR devices require a special driver installation to work correctly with SeeDeR.</p>
+
+<p>When you first plug in your RTL-SDR dongle, Windows will automatically install its own drivers.  Wait for Windows to finish, and then follow the directions below to overwrite the drivers.  Zadig should launch automatically.</p>
+
+<p>First, click options:</p>
+<img src='zadig_options.png'>
+<p>Then, click "List All Devices":</p>
+<img src='zadig_listalldevices.png'>
+<p>Click on the device dropdown and select "Bulk-In, Interface (Interface 0):</p>
+<img src='zadig_dropdown.png'>
+<img src='zadig_bulk_in.png'>
+<p>Next, ensure that WinUSB is selected as the driver to install:</p>
+<img src='zadig_winusb_hilite.png'>
+<p>Finally, click "Reinstall Driver":</p>
+<img src='zadig_reinstall.png'>
+<p>You may now close Zadig and continue with the installation.</p>
+</body>
+</html>
