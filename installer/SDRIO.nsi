@@ -38,11 +38,14 @@ Section "SDRIO (required)"
   File "..\${BUILDTYPE}\SDRIO_bladeRF.dll"
   File "..\${BUILDTYPE}\SDRIO_FUNcube.dll"
   File "..\${BUILDTYPE}\SDRIO_RTLSDR.dll"
+  File "..\${BUILDTYPE}\SDRIO_Mirics.dll"
   
   File "..\3rdparty\libusb\MS32\dll\libusb-1.0.dll"
   File "..\3rdparty\pthreads\dll\pthreadVC2.dll"
   File "..\3rdparty\rtl-sdr\x32\pthreadVC2-w32.dll"
 
+  File "..\SDRIO\sdrio_ext.h"
+  
   File "..\LICENSE.txt"
   
   ; Write the installation path into the registry
@@ -76,7 +79,7 @@ Section /o "bladeRF drivers (download)"
   
 SectionEnd
 
-Section /o "Zadig (download) for RTL-SDR devices"
+Section /o "Zadig (download) for RTL-SDR and Mirics devices"
 
     File /r "zadig"
 

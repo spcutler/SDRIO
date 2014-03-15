@@ -11,6 +11,28 @@ with non-GPL code.
 Non GPL-code may reference the SDRIO binaries only via dynamic loading
 and the interface defined in sdrio_ext.h.
 
+The SDRIO installer uses NSIS (Nullsoft Scriptable Install System).  
+Please see the NSIS documentation for further license information.
+
+SDRIO uses Pthreads-win32 by John E. Bossom under the GNU Lesser General 
+Public License (shown below)
+
+SDRIO_bladeRF is compiled using the bladerRF API under the LGPL.  See
+license below.
+
+SDRIO_RTLSDR uses the rtl-sdr library by Hoernchen.  rtl-sdr is licensed
+with the GPL, and thus SDRIO_RTLSDR as a whole must be considered GPL.
+See license below.
+
+SDRIO_FUNcube uses code adapted from the FUNcube dongle sample code.
+
+SDRIO_Mirics uses the libmirisdr-2 library by Miroslav Slugen.  libmirisdr-2
+is GPL licensed, and thus SDRIO_Mirics as a whole must be considered GPL.
+See license below.
+
+SDRIO_bladeRF, SDRIO_RTLSDR, and SDRIO_Mirics use libusb, by Johannes Erdfelt
+and others, under the GNU Lesser General Public License (shown below).
+
 -------------------------------------------------------------------------
                  GNU LESSER GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
@@ -177,3 +199,92 @@ whether future versions of the GNU Lesser General Public License shall
 apply, that proxy's public statement of acceptance of any version is
 permanent authorization for you to choose that version for the
 Library.
+
+--------------------------------------------------------------------
+
+bladeRF:
+Copyright (C) 2013 Nuand LLC
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+
+---------------------------------------------------------------------
+
+rtl-sdr, turns your Realtek RTL2832 based DVB dongle into a SDR receiver
+Copyright (C) 2012 by Hoernchen <la@tfc-server.de>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+-----------------------------------------------------------
+
+Pthreads-win32 - POSIX Threads Library for Win32
+Copyright(C) 1998 John E. Bossom
+Copyright(C) 1999,2005 Pthreads-win32 contributors
+
+Contact Email: rpj@callisto.canberra.edu.au
+
+The current list of contributors is contained
+in the file CONTRIBUTORS included with the source
+code distribution. The list can also be seen at the
+following World Wide Web location:
+http://sources.redhat.com/pthreads-win32/contributors.html
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library in the file COPYING.LIB;
+if not, write to the Free Software Foundation, Inc.,
+59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
+
+------------------------------------------------------------
+
+Public libusb header file
+Copyright © 2001 Johannes Erdfelt <johannes@erdfelt.com>
+Copyright © 2007-2008 Daniel Drake <dsd@gentoo.org>
+Copyright © 2012 Pete Batard <pete@akeo.ie>
+Copyright © 2012 Nathan Hjelm <hjelmn@cs.unm.edu>
+For more information, please visit: http://libusb.info
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
