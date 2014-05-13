@@ -303,7 +303,7 @@ SDRIOEXPORT void * start_rx_routine(void *ctx)
         dev->rx.buffers = 0;
         dev->rx.num_buffers = 32;
         bladerf_format format = BLADERF_FORMAT_SC16_Q12;
-        size_t num_samples = 65536;
+        size_t num_samples = 32768;
         size_t num_transfers = 16;
         int ret = bladerf_init_stream(
             &stream,

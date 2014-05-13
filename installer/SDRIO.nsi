@@ -39,6 +39,8 @@ Section "SDRIO (required)"
   File "..\${BUILDTYPE}\SDRIO_FUNcube.dll"
   File "..\${BUILDTYPE}\SDRIO_RTLSDR.dll"
   File "..\${BUILDTYPE}\SDRIO_Mirics.dll"
+  File "..\${BUILDTYPE}\SDRIO_hackRF.dll"
+  File "..\${BUILDTYPE}\SDRIO_null.dll"
   
   File "..\3rdparty\libusb\MS32\dll\libusb-1.0.dll"
   File "..\3rdparty\pthreads\dll\pthreadVC2.dll"

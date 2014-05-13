@@ -71,6 +71,7 @@ int mirisdr_open (mirisdr_dev_t **p, uint32_t index) {
     dev->index = index;
 
     libusb_init(&dev->ctx);
+
     i_max = libusb_get_device_list(dev->ctx, &list);
 
     for (i = 0; i < i_max; i++) {

@@ -202,7 +202,7 @@ SDRIOEXPORT void * start_rx_routine(void *ctx)
     if (dev)
     {
         rtlsdr_reset_buffer(dev->rtl_device);
-        rtlsdr_read_async(dev->rtl_device, rtlsdr_read_async_cb, (void *)dev, 0, 0);
+        rtlsdr_read_async(dev->rtl_device, rtlsdr_read_async_cb, (void *)dev, 0, 65536);
         pthread_exit(0);
     }
 
@@ -336,9 +336,6 @@ SDRIOEXPORT sdrio_int32 sdrio_get_rx_gain_range(sdrio_device *dev, sdrio_float32
         return 0;
     }
 }
-
-#include <Windows.h>
-#include <stdio.h>
 
 SDRIOEXPORT sdrio_int32 sdrio_set_rx_gain(sdrio_device *dev, sdrio_float32 gain)
 {

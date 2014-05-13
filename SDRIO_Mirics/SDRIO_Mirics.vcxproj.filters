@@ -16,6 +16,9 @@
     <Filter Include="Source Files\mirics">
       <UniqueIdentifier>{f0202d15-4ab6-40a6-a44a-1cc4b23ad9d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\libusb">
+      <UniqueIdentifier>{66426d1b-dc66-4227-8a45-b13042f81b4b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\3rdparty\libmirisdr-2\src\libmirisdr.c">
@@ -23,6 +26,33 @@
     </ClCompile>
     <ClCompile Include="sdrio_mirics.c">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdparty\libusb-src\libusb\core.c">
+      <Filter>Source Files\libusb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdparty\libusb-src\libusb\descriptor.c">
+      <Filter>Source Files\libusb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdparty\libusb-src\libusb\hotplug.c">
+      <Filter>Source Files\libusb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdparty\libusb-src\libusb\io.c">
+      <Filter>Source Files\libusb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdparty\libusb-src\libusb\strerror.c">
+      <Filter>Source Files\libusb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdparty\libusb-src\libusb\sync.c">
+      <Filter>Source Files\libusb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdparty\libusb-src\libusb\os\poll_windows.c">
+      <Filter>Source Files\libusb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdparty\libusb-src\libusb\os\threads_windows.c">
+      <Filter>Source Files\libusb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdparty\libusb-src\libusb\os\windows_usb.c">
+      <Filter>Source Files\libusb</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -43,11 +43,11 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)\SDRIO;$(SolutionDir)\3rdparty\libmirisdr-2\include;$(SolutionDir)\3rdparty\pthreads\include;$(SolutionDir)\3rdparty\libusb\include\libusb-1.0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\SDRIO;$(SolutionDir)\3rdparty\libmirisdr-2\include;$(SolutionDir)\3rdparty\pthreads\include;$(SolutionDir)\3rdparty\libusb-src\libusb;$(SolutionDir)\3rdparty\libusb-src\msvc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(SolutionDir)\3rdparty\pthreads\lib\pthreadVC2.lib;$(SolutionDir)\3rdparty\libusb\MS32\static\libusb-1.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)\3rdparty\pthreads\lib\pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -56,17 +56,26 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\SDRIO;$(SolutionDir)\3rdparty\libmirisdr-2\include;$(SolutionDir)\3rdparty\pthreads\include;$(SolutionDir)\3rdparty\libusb\include\libusb-1.0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\SDRIO;$(SolutionDir)\3rdparty\libmirisdr-2\include;$(SolutionDir)\3rdparty\pthreads\include;$(SolutionDir)\3rdparty\libusb-src\libusb;$(SolutionDir)\3rdparty\libusb-src\msvc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(SolutionDir)\3rdparty\pthreads\lib\pthreadVC2.lib;$(SolutionDir)\3rdparty\libusb\MS32\static\libusb-1.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)\3rdparty\pthreads\lib\pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\3rdparty\libmirisdr-2\src\libmirisdr.c" />
+    <ClCompile Include="..\3rdparty\libusb-src\libusb\core.c" />
+    <ClCompile Include="..\3rdparty\libusb-src\libusb\descriptor.c" />
+    <ClCompile Include="..\3rdparty\libusb-src\libusb\hotplug.c" />
+    <ClCompile Include="..\3rdparty\libusb-src\libusb\io.c" />
+    <ClCompile Include="..\3rdparty\libusb-src\libusb\os\poll_windows.c" />
+    <ClCompile Include="..\3rdparty\libusb-src\libusb\os\threads_windows.c" />
+    <ClCompile Include="..\3rdparty\libusb-src\libusb\os\windows_usb.c" />
+    <ClCompile Include="..\3rdparty\libusb-src\libusb\strerror.c" />
+    <ClCompile Include="..\3rdparty\libusb-src\libusb\sync.c" />
     <ClCompile Include="sdrio_mirics.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

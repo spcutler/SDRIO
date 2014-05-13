@@ -203,6 +203,7 @@ static void LIBUSB_CALL _libusb_callback (struct libusb_transfer *xfer) {
             fprintf(stderr, "error re-submitting URB on device %u\n", p->index);
             goto failed;
         }
+    //} else if (xfer->status == LIBUSB_TRANSFER_STALL) {
     } else if (xfer->status != LIBUSB_TRANSFER_CANCELLED) {
         fprintf(stderr, "error async transfer status %d on device %u\n", xfer->status, p->index);
         goto failed;
@@ -317,7 +318,15 @@ static int mirisdr_async_free (mirisdr_dev_t *p) {
 
     if (p->xfer) {
         for (i = 0; i < p->xfer_buf_num; i++) {
-            if (p->xfer[i]) libusb_free_transfer(p->xfer[i]);
+            if (p->xfer[i]->status != LIBUSB_TRANSFER_CANCELLED)
+            {
+                libusb_cancel_transfer(p->xfer[i]);
+            }
+
+            if (p->xfer[i]->status == LIBUSB_TRANSFER_CANCELLED)
+            {
+                libusb_free_transfer(p->xfer[i]);
+            }
         }
 
         free(p->xfer);
